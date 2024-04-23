@@ -30,6 +30,15 @@ public class PatientsController : ControllerBase
         
         return resources;
     }
+
+    [HttpGet("{id}")]
+    public async Task<PatientResource> GetPatientbyId(int id)
+    {
+        var patient = await _patientService.GetByIdAsync(id);
+        var resource = _mapper.Map<Patient, PatientResource>(patient);
+        
+        return resource;
+    }
     
     [HttpPost]
     public async Task<IActionResult> PostAsync([FromBody] SavePatientResource resource)
@@ -49,7 +58,7 @@ public class PatientsController : ControllerBase
     }
     
     [HttpPost("verify-patient")]
-    public async Task<IActionResult> VerifyPatientAsync([FromBody] PatientResource loginResource)
+    public async Task<IActionResult> VerifyPatientAsync([FromBody] LoginResource loginResource)
     {
         if (!ModelState.IsValid)
             return BadRequest(ModelState.GetErrorMessages());
@@ -58,7 +67,7 @@ public class PatientsController : ControllerBase
 
         if (patient == null)
         {
-            return NotFound("Patient not found.");
+            return NotFound("Invalid credentials.");
         }
 
         var patientResource = _mapper.Map<Patient, PatientResource>(patient);
@@ -83,7 +92,7 @@ public class PatientsController : ControllerBase
         return Ok(patientResource);
     }
 
-    [HttpPut("/update-password/{id}")]
+    [HttpPut("update-password/{id}")]
     public async Task<IActionResult> UpdatePasswordAsync(int id, [FromBody] UpdatePatientPasswordResource resource)
     {
         if (!ModelState.IsValid)

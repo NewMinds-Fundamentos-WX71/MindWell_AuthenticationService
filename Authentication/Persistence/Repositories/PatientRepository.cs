@@ -32,6 +32,15 @@ public class PatientRepository : BaseRepository, IPatientRepository
         return await _context.Patients.FirstOrDefaultAsync(x => x.Email == email && x.Password == password);
     }
 
+    public async Task<string> FindPasswordByEmailAsync(string email)
+    {
+        // Return only the password of the database record that has the given email
+        return await _context.Patients
+            .Where(x => x.Email == email)
+            .Select(x => x.Password)
+            .FirstOrDefaultAsync();
+    }
+
     public async Task AddAsync(Patient patient)
     {
         await _context.Patients.AddAsync(patient);

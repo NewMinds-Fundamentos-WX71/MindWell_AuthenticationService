@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace AuthenticationService.Authentication.Resources.GET;
 
 public class PatientResource

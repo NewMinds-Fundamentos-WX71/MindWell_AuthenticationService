@@ -8,6 +8,7 @@ public interface IPatientRepository
     Task<Patient> FindByIdAsync(int id);
     Task<Patient> FindByEmailAsync(string email);
     Task<Patient> FindByEmailAndPasswordAsync(string email, string password);
+    Task<string> FindPasswordByEmailAsync(string email);
     Task AddAsync(Patient patient);
     void Update(Patient patient);
     void Remove(Patient patient);

@@ -6,6 +6,7 @@ namespace AuthenticationService.Authentication.Domain.Services;
 public interface IPatientService
 {
     Task<IEnumerable<Patient>> ListAsync();
+    Task<Patient> GetByIdAsync(int id);
     Task<Patient> GetByEmailAndPasswordAsync(string email, string password);
     Task<PatientResponse> SaveAsync(Patient patient);
     Task<PatientResponse> UpdateAsync(int id, Patient patient);
