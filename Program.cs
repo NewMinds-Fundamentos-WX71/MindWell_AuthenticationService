@@ -18,7 +18,7 @@ builder.Services.AddSwaggerGen();
 
 // Add Database Connection
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddDbContext<AppDbContext>( options => options.UseSqlite(connectionString)
+builder.Services.AddDbContext<AppDbContext>( options => options.UseNpgsql(connectionString)
     .LogTo(Console.WriteLine, LogLevel.Information)
     .EnableSensitiveDataLogging()
     .EnableDetailedErrors());
